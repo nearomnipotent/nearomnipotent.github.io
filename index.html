@@ -121,6 +121,9 @@ a{color:inherit}
 .ext{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15.5px}
 .ext a{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
 .ext a:hover{text-decoration-color:currentColor}
+.ext{align-items:center}
+.ext .more{margin-right:4px}
+.ext-links{display:flex;flex-wrap:wrap;gap:6px 18px}
 .rows .did{margin-top:17px}
 .rows .more,.rows .acts{margin-top:13px;align-self:end;justify-self:start}
 .rows .acts .more{margin-top:0}
@@ -438,7 +441,7 @@ a{color:inherit}
           </ul>
           <p class="ext"><a href="https://www.instagram.com/reel/DKW07HAhdCd/" target="_blank" rel="noopener">Event reel<span aria-hidden="true"> ↗</span></a><a href="https://www.instagram.com/p/DfZkLYlGp2o/" target="_blank" rel="noopener">Instagram post<span aria-hidden="true"> ↗</span></a></p>
         </article>
-        <article class="card rows r5 c6 half-md">
+        <article class="card rows r5 c6 half-md proj" data-project="muara">
           <p class="when"><span class="chip">Dec 2020</span></p>
           <h3>Muara Studio</h3>
           <div class="meta"><p class="role">Tour Guide</p><p class="place">National Museum</p></div>
@@ -446,7 +449,7 @@ a{color:inherit}
             <li>Introduced visitors to the museum’s newest exhibitions and updates, guiding around 100 people over two days.</li>
             <li>Muara builds immersive storytelling: AR experiences, interactive kiosks, digital museums, web platforms and 3D spaces. Planning a project? Get in touch with them.</li>
           </ul>
-          <p class="ext"><a href="https://www.muarastudio.com/" target="_blank" rel="noopener">muarastudio.com<span aria-hidden="true"> ↗</span></a><a href="https://www.instagram.com/muarastudio_/" target="_blank" rel="noopener">@muarastudio_<span aria-hidden="true"> ↗</span></a></p>
+          <p class="ext"><button class="more" type="button"><span class="fan" aria-hidden="true"><img src="img/muara-1-s.jpg" alt="" width="102" height="126" loading="lazy"><img src="img/muara-2-s.jpg" alt="" width="102" height="126" loading="lazy"><img src="img/muara-3-s.jpg" alt="" width="102" height="126" loading="lazy"></span>View photos<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 7l-10 10"/><path d="M8 7l9 0l0 9"/></svg></button><span class="ext-links"><a href="https://www.muarastudio.com/" target="_blank" rel="noopener">muarastudio.com<span aria-hidden="true"> ↗</span></a><a href="https://www.instagram.com/muarastudio_/" target="_blank" rel="noopener">@muarastudio_<span aria-hidden="true"> ↗</span></a></span></p>
         </article>
       </div>
     </div>
@@ -1346,12 +1349,13 @@ void main(){
   var stage=$('v-stage'),canvas=$('v-canvas'),loading=$('v-load'),cap=$('v-cap'),credit=$('v-credit'),count=$('v-count'),dots=$('v-dots'),info=$('v-info');
   /* file name, caption, credit. Every set is the project's own material. Images are published whole;
      the ring shows them uncropped and "Full image" shows the current one large. */
-  var OWN='Photo: BerSalaman EcoGenRe',IG='From @bersalaman.eco on Instagram',TGM='Teater Gadjah Mada',FIELD='Fieldwork photo, June 2026',PR='From @pustaka.rakyat.id on Instagram',CEMAS='From @pkmrshugm.cemas on Instagram';
+  var OWN='Photo: BerSalaman EcoGenRe',IG='From @bersalaman.eco on Instagram',TGM='Teater Gadjah Mada',FIELD='Fieldwork photo, June 2026',PR='From @pustaka.rakyat.id on Instagram',CEMAS='From @pkmrshugm.cemas on Instagram',MUARA='Muara Studio project, National Museum';
   var PHOTOS={
     jrbm:[['jrbm-1','Interview at a resident’s home',FIELD],['jrbm-2','Discussion at a village shelter beside the cocoa trees',FIELD],['jrbm-3','In a cocoa garden during fieldwork',FIELD]],
     eco:[['eco-1','Pojok Hijau, the maggot house and sorting point in RW 07',OWN],['eco-2','Residents and officials at Pojok Hijau',OWN],['eco-3','Campaign post: officials look at the maggot trays',OWN],['eco-4','Setting up the maggot house',OWN],['eco-5','Explaining the black soldier fly cycle at Kelurahan Purwosari',OWN],['eco-6','Visit to a local government office',OWN],['eco-7','Design sheet for the maggot facility',OWN],['eco-8','Instagram explainer: what BerSalaman is',IG],['eco-9','Instagram teaser for the pilot',IG]],
     stage:[['stage-1','Theatrium Games poster: Concert Hall TBY, 19 May 2025',TGM],['stage-2','Poster Hunt, the audience game on Instagram',TGM],['stage-3','Certificate of appreciation as Production Manager',TGM]],
     books:[['books-1','“What is Pustaka Rakyat?”, the opening post',PR],['books-2','The movement’s disclaimer post',PR],['books-3','Case Studies, academic edition, part 1',PR],['books-4','Case Studies, political edition, part 1',PR]],
+    muara:[['muara-1','Guiding a school group through the statue gallery',MUARA],['muara-2','Students gather around a guide in the statue gallery',MUARA],['muara-3','Setting objects in place for a new exhibition',MUARA]],
     lab:[['lab-1','The CEMAS team at the Sinduadi waste site',CEMAS],['lab-2','Observation findings at TPST Sindu Mandiri',CEMAS],['lab-3','What a circular economy means',CEMAS],['lab-4','Research results from the CEMAS team',CEMAS],['lab-5','Research title and theme, PKM-RSH 2025',CEMAS]]
   };
   var cache={},warp=null,cur=null,seq=0,at=0,flat=false;
@@ -1442,7 +1446,8 @@ void main(){
   $('v-prev').addEventListener('click',function(){if(warp)warp.prev()});
   $('v-next').addEventListener('click',function(){if(warp)warp.next()});
   [].forEach.call(document.querySelectorAll('.proj'),function(card){
-    card.addEventListener('click',function(){
+    card.addEventListener('click',function(e){
+      if(e.target.closest&&e.target.closest('a'))return;
       if(window.getSelection&&String(window.getSelection()))return;
       open(card);
     });
